@@ -5,7 +5,7 @@ As it exists, the California Civil Code is difficult to read because of its
 extensive use of structured headings and disdain for indentation.
 
 The codes follow a heading structure of, from top-level to bottom-level:
-`(a) (1) (A) (roman i)( roman I) (ia)`
+`(a) (1) (A) (roman i)(roman I) (ia)`
 
 It's possible there are lower level headings, but I have no encountered them and
 there seems to be no reference.
@@ -16,11 +16,12 @@ distinction between the lower case `i` in the top-level heading and the roman
 numeral `i`.
 
 Consider the case
-
+``````
 (h) (1) (A) This common heading starts as a top-level but then descends two
 levels of heading.
 (i) This heading is indeterminate. It could be the next top-level heading, or it
 could be a descendant of (h) (1) (A).
+``````
 
 Additional information could be provided by the next heading, be it (ii) or (j),
 but there's not always an additional heading.
