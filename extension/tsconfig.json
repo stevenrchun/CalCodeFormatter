@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "downlevelIteration": true,
+        "sourceMap": true
+    },
+    "files": [
+        "reformat.ts"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "name": "California Code Formatter",
+    "description": "Reformats the California legal codes into something more readable.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": ["storage", "activeTab", "scripting"],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [{
+        "matches": ["https://leginfo.legislature.ca.gov/faces/codes_displayText*", "https://leginfo.legislature.ca.gov/faces/codes_displaySection*"],
+        "css": ["reformat.css"],
+        "js": ["reformat.js"]
+    }]
+}
