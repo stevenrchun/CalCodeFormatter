@@ -1,7 +1,7 @@
 # CalCodeFormatter
 _A code formatter but not in that way!_
 
-*Important User Notice*
+### Important User Notice
 This software exists to make the California Civil Code easier to read. It works
 in most cases. However, the indentation it provides is not and cannot be 100%
 accurate. Always manually verify the structure of the paragraphs/clauses/subclauses/etc.
@@ -29,23 +29,23 @@ levels of heading.
 could be a descendant of (h) (1) (A).
 ``````
 
-Additional information could be provided by the next heading, be it (ii) or (j),
+Additional information could be provided by the next heading, be it `(ii)` or `(j)`,
 but there's not always an additional heading.
 
 This extension follows reasonable heuristics to attain nearly correct
-indentation. Any headings below (I) will be left at the same indentation level,
+indentation. Any headings below `(I)` will be left at the same indentation level,
 since they are rather rare and would complicate the code quite a bit.
 
-1. If the prior level of heading was (i) or lower (I or ia), treat (i) as a roman
-   numeral. If the prior level of heading was (A), only treat (i) as a roman
-   numeral, but not subsequent other numerals (ex: ii or iv) since
+1. If the prior level of heading was `(i)` or lower `(I or ia)`, treat `(i)` as a roman
+   numeral. If the prior level of heading was `(A)`, only treat `(i)` as a roman
+   numeral, but not subsequent other numerals (ex: `ii or iv`) since
    dropping down a heading level must start with the first symbol of the new
    level, whereas going up a heading level can resume an arbitrarily long
    sequence of headings.
 
-2. Same as 1. but shifted for heading level (I): Treat as a roman numeral if the
-   prior level of heading was (I) or lower. Only treat as a roman numeral if the
-   prior level of heading was (i) and the new symbol is literally (I), the first
+2. Same as 1. but shifted for heading level `(I)`: Treat as a roman numeral if the
+   prior level of heading was `(I)` or lower. Only treat as a roman numeral if the
+   prior level of heading was `(i)` and the new symbol is literally `(I)`, the first
    of the new level.
 
 Quite often we'll have something like:
@@ -64,6 +64,8 @@ Meaning we need
 
 This will work correctly in many cases, but will not resolve indeterminate
 cases.
+
+## Bugs
 
 If, in your perusal of the letter of the law, you notice a case of incorrect
 indentation that is not already mentioned above, please either file an issue on
