@@ -18,9 +18,11 @@ let CODE_CONTENT_ID = 'single_law_section';
 // https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=COM&division=7.&title=&part=&chapter=2.&article=
 let ARTICLE_CONTENT_ID = 'manylawsections';
 
+type StringToNumberMap = { [key: string]: number };
+
 function romanToInt(roman: string): number {
   roman = roman.toUpperCase();
-  const ROMAN_TO_INT = {
+  const ROMAN_TO_INT: StringToNumberMap = {
     I: 1,
     V: 5,
     X: 10,
@@ -128,7 +130,13 @@ function reformatPage() {
   let level = 0;
   let last_heading = '';
   for (let text_node of Array.from(text_children_nodes)) {
-    let text: string = text_node.textContent;
+    let text_or_null: string | null = text_node.textContent;
+    let text: string;
+    if (!text_or_null) {
+      continue;
+    } else {
+      text = text_or_null;
+    }
     // There are empty <p> tags inbetween sections.
     if (text.length == 0) {
       continue;
@@ -228,5 +236,10 @@ function reformatPage() {
   }
 }
 
-// Probably do a chrome state thing "is enabled"
-reformatPage();
+// Default to True, if the UI hasn't been brought up yet, which sets initial state for 'active'.
+// This could be done in a background script on the onInstall listener, but this is easier.
+chrome.storage.sync.get({ active: true }, ({ active }) => {
+  if (active) {
+    reformatPage();
+  }
+});

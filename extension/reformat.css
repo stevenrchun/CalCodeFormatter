@@ -1,7 +1,3 @@
-html {
-  background-color: purple;
-}
-
 /* Gets rid of annoying case where (a) follows a code number */
 h6 + p {
   display: block !important;

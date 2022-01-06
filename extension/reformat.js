@@ -1,3 +1,4 @@
+"use strict";
 // let reformatButton = document.getElementById('reformatButton');
 //
 // reformatButton.addEventListener('click', async () => {
@@ -12,24 +13,24 @@
 // Class and Id Constants
 // Refers to the primary div for the text of a single civil code, ex.
 // https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65589.5
-var CODE_CONTENT_ID = 'single_law_section';
+let CODE_CONTENT_ID = 'single_law_section';
 // Refers to the primary div for the text of an article (grouping of codes),
 // ex.
 // https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=COM&division=7.&title=&part=&chapter=2.&article=
-var ARTICLE_CONTENT_ID = 'manylawsections';
+let ARTICLE_CONTENT_ID = 'manylawsections';
 function romanToInt(roman) {
     roman = roman.toUpperCase();
-    var ROMAN_TO_INT = {
+    const ROMAN_TO_INT = {
         I: 1,
         V: 5,
         X: 10,
         L: 50,
         C: 100,
         D: 500,
-        M: 1000
+        M: 1000,
     };
-    var sum = 0;
-    for (var i = 0; i < roman.length; i++) {
+    let sum = 0;
+    for (let i = 0; i < roman.length; i++) {
         if (i + 1 < roman.length &&
             ROMAN_TO_INT[roman[i]] < ROMAN_TO_INT[roman[i + 1]]) {
             sum += ROMAN_TO_INT[roman[i + 1]] - ROMAN_TO_INT[roman[i]];
@@ -57,14 +58,14 @@ function isUpperCaseLetter(text) {
     return text.toUpperCase() == text;
 }
 function isUpperCaseRomanNumeral(text) {
-    var matches = text.match(/[MDCLXVI]+/g);
+    let matches = text.match(/[MDCLXVI]+/g);
     if (matches && matches.length == 1 && matches[0].length === text.length) {
         return true;
     }
     return false;
 }
 function isLowerCaseRomanNumeral(text) {
-    var matches = text.match(/[mdclxvi]+/g);
+    let matches = text.match(/[mdclxvi]+/g);
     // If the match is not the full length of the text, then we've matched on
     // part of a compound heading like (ia).
     if (matches && matches.length == 1 && matches[0].length === text.length) {
@@ -78,7 +79,7 @@ function surroundedByParentheses(text) {
     return text[0] == '(' && text[text.length - 1] == ')';
 }
 function reformatPage() {
-    var content_div = document.getElementById(ARTICLE_CONTENT_ID);
+    let content_div = document.getElementById(ARTICLE_CONTENT_ID);
     if (!content_div) {
         // Try the single law page content id.
         content_div = document.getElementById(CODE_CONTENT_ID);
@@ -88,7 +89,7 @@ function reformatPage() {
         }
     }
     // Returns a static collection, will not reflect DOM updates.
-    var text_children_nodes = content_div.querySelectorAll('p');
+    let text_children_nodes = content_div.querySelectorAll('p');
     if (!text_children_nodes) {
         console.warn('This law section appears to have no content.');
         return;
@@ -112,23 +113,29 @@ function reformatPage() {
     // (2) (A) (i) which is level 4
     // If we can encounter an (i) or (II) while at level >=3, we can interpret
     // it as a roman numeral as opposed to a letter.
-    var level = 0;
-    var last_heading = '';
-    for (var _i = 0, _a = Array.from(text_children_nodes); _i < _a.length; _i++) {
-        var text_node = _a[_i];
-        var text = text_node.textContent;
+    let level = 0;
+    let last_heading = '';
+    for (let text_node of Array.from(text_children_nodes)) {
+        let text_or_null = text_node.textContent;
+        let text;
+        if (!text_or_null) {
+            continue;
+        }
+        else {
+            text = text_or_null;
+        }
         // There are empty <p> tags inbetween sections.
         if (text.length == 0) {
             continue;
         }
         // Remove non-breaking spaces.
         text = text.replace(/\u00a0/g, ' ');
-        var words = text.split(' ');
-        var i = 0;
+        let words = text.split(' ');
+        let i = 0;
         // Padding is determined by the first heading level encountered.
         // However level is set according to all headings on a line.
-        var found_padding_level = false;
-        var padding_level = 0;
+        let found_padding_level = false;
+        let padding_level = 0;
         // Skip any leading whitespaces
         // Ex: Harbors & Navigation Code 1.5 Navigable Waters 133c
         // contains a leading space in front of the (c).
@@ -136,7 +143,7 @@ function reformatPage() {
             ++i;
         }
         while (surroundedByParentheses(words[i])) {
-            var word = words[i];
+            let word = words[i];
             // Strip the parantheses.
             word = word.replace(/[()]/g, '');
             // Turn back, traveler, for Here lies the core of the parsing logic.
@@ -145,13 +152,13 @@ function reformatPage() {
             // heading was a roman numeral, apply Heuristic #1 (see REAMDE.md). If
             // not, apply Heuristic #3. The've been extracted out of the if
             // statements for clarity.
-            var is_lowercase_roman_heading = isLowerCaseRomanNumeral(last_heading)
+            let is_lowercase_roman_heading = isLowerCaseRomanNumeral(last_heading)
                 ? isLowerCaseRomanNumeral(word) &&
                     level >= 4 &&
                     romanToInt(last_heading) + 1 == romanToInt(word)
                 : (isLowerCaseRomanNumeral(word) && level >= 4) ||
                     (level == 3 && word == 'i');
-            var is_uppercase_roman_heading = isUpperCaseRomanNumeral(last_heading)
+            let is_uppercase_roman_heading = isUpperCaseRomanNumeral(last_heading)
                 ? isUpperCaseRomanNumeral(word) &&
                     level >= 5 &&
                     romanToInt(last_heading) + 1 == romanToInt(word)
@@ -207,15 +214,21 @@ function reformatPage() {
         }
         found_padding_level = false;
         // Set padding based on padding level.
-        var padding = padding_level * 25;
-        var text_element = text_node;
+        let padding = padding_level * 25;
+        let text_element = text_node;
         // Yes we're applying the padding variable to margin.  That's because
         // wrapped text doesn't respect padding, which makes it a poor choice for
         // indenting.
-        text_element.style.margin = "0 0 0 ".concat(padding, "px");
-        text_element.style.padding = "0 0 0 5px";
+        text_element.style.margin = `0 0 0 ${padding}px`;
+        text_element.style.padding = `0 0 0 5px`;
         text_element.style.display = 'block';
     }
 }
-// Probably do a chrome state thing "is enabled"
-reformatPage();
+// Default to True, if the UI hasn't been brought up yet, which sets initial state for 'active'.
+// This could be done in a background script on the onInstall listener, but this is easier.
+chrome.storage.sync.get({ active: true }, ({ active }) => {
+    if (active) {
+        reformatPage();
+    }
+});
+//# sourceMappingURL=reformat.js.map

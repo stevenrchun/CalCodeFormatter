@@ -4,7 +4,7 @@ _A code formatter but not in that way!_
 ### Important User Notice
 This software exists to make the California Civil Code easier to read. It works
 in most cases. However, the indentation it provides is not and cannot be 100%
-accurate. Always manually verify the structure of the paragraphs/clauses/subclauses/etc.
+accurate. Always manually verify the structure of the relevant paragraphs/clauses/subclauses/etc.
 
 ---
 

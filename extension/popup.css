@@ -1,14 +1,57 @@
+/* From Josh Comeau's excellent shadow generator */
+:root {
+  --shadow-color: 51deg 51% 41%;
+  --shadow-elevation-low:
+    0.3px 0.2px 0.4px hsl(var(--shadow-color) / 0.47),
+    0.5px 0.4px 0.7px -1.2px hsl(var(--shadow-color) / 0.47),
+    1.2px 1px 1.8px -2.5px hsl(var(--shadow-color) / 0.47);
+  --shadow-elevation-medium:
+    0.3px 0.2px 0.4px hsl(var(--shadow-color) / 0.49),
+    0.9px 0.8px 1.4px -0.8px hsl(var(--shadow-color) / 0.49),
+    2.4px 2px 3.5px -1.7px hsl(var(--shadow-color) / 0.49),
+    5.9px 4.9px 8.6px -2.5px hsl(var(--shadow-color) / 0.49);
+  --shadow-elevation-high:
+    0.3px 0.2px 0.4px hsl(var(--shadow-color) / 0.46),
+    1.9px 1.6px 2.8px -0.4px hsl(var(--shadow-color) / 0.46),
+    3.6px 3px 5.3px -0.7px hsl(var(--shadow-color) / 0.46),
+    6px 4.9px 8.7px -1.1px hsl(var(--shadow-color) / 0.46),
+    9.7px 7.9px 14.1px -1.4px hsl(var(--shadow-color) / 0.46),
+    15.2px 12.4px 22.1px -1.8px hsl(var(--shadow-color) / 0.46),
+    23.1px 18.9px 33.6px -2.1px hsl(var(--shadow-color) / 0.46),
+    34.1px 27.9px 49.6px -2.5px hsl(var(--shadow-color) / 0.46);
+}
+
+body {
+  margin: 0;
+  font-size: 14px;
+  font-family: 'Times New Roman', serif;
+}
+
 .container {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #6246ea;
+  background-color: #fff1a8;
 }
 
-#reformatButton {
-  width: 50px;
-  height: 50px;
+#activateButton {
+  padding: 5px;
   display: flex;
+  border-radius: 5px;
+  border: none;
+  margin-left: 2px;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  transition: all 0.3s ease 0s;
+}
+
+.button-off {
+  box-shadow: var(--shadow-elevation-low);
+}
+
+.button-on {
+  box-shadow: var(--shadow-elevation-medium);
 }

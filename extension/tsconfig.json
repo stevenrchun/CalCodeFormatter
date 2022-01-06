@@ -5,6 +5,7 @@
         "sourceMap": true
     },
     "files": [
-        "reformat.ts"
+        "reformat.ts",
+        "popup.ts"
     ]
 }
