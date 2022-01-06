@@ -1,14 +1,3 @@
-// let reformatButton = document.getElementById('reformatButton');
-//
-// reformatButton.addEventListener('click', async () => {
-//   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-//
-//   chrome.scripting.executeScript({
-//     target: { tabId: tab.id },
-//     function: reformatPage,
-//   });
-// });
-//
 // Class and Id Constants
 // Refers to the primary div for the text of a single civil code, ex.
 // https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65589.5
@@ -238,7 +227,7 @@ function reformatPage() {
 
 // Default to True, if the UI hasn't been brought up yet, which sets initial state for 'active'.
 // This could be done in a background script on the onInstall listener, but this is easier.
-chrome.storage.sync.get({ active: true }, ({ active }) => {
+chrome.storage.local.get({ active: true }, ({ active }) => {
   if (active) {
     reformatPage();
   }

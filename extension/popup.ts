@@ -27,15 +27,15 @@ if (!button_or_null) {
 
 // Set current status in button.
 // Default to on.
-chrome.storage.sync.get({ active: true }, ({ active }) => {
+chrome.storage.local.get({ active: true }, ({ active }) => {
   setButtonActiveStatus(button, active);
-  chrome.storage.sync.set({ active });
+  chrome.storage.local.set({ active });
 });
 
 button.addEventListener('click', async () => {
-  let res = await chrome.storage.sync.get('active');
+  let res = await chrome.storage.local.get('active');
   let current_status = res['active'];
   // Set inverted.
-  await chrome.storage.sync.set({ active: !current_status });
+  await chrome.storage.local.set({ active: !current_status });
   setButtonActiveStatus(button, !current_status);
 });
