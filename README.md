@@ -6,6 +6,16 @@ This software exists to make the California Civil Code easier to read. It works
 in most cases. However, the indentation it provides is not and cannot be 100%
 accurate. Always manually verify the structure of the relevant paragraphs/clauses/subclauses/etc.
 
+### Usage
+Open the extension by clicking on the puzzle piece icon in Chrome, then click on the
+CalCodeFormatter icon. This will open the extension controls. Clicking the
+on/off button will enable/disable the formatter.
+
+Navigate to your favorite California law, for example [The Housing
+Elements](https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=GOV&division=1.&title=7.&part=&chapter=3.&article=10.6.).
+If the formatter is on, you should see the new formatting applied. If you wish
+to turn it off, simply turn off formatting in the controls and refresh the page.
+
 ---
 
 As it exists, the California Civil Code is difficult to read because of its
