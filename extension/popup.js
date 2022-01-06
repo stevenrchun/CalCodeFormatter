@@ -33,15 +33,15 @@ else {
 }
 // Set current status in button.
 // Default to on.
-chrome.storage.sync.get({ active: true }, ({ active }) => {
+chrome.storage.local.get({ active: true }, ({ active }) => {
     setButtonActiveStatus(button, active);
-    chrome.storage.sync.set({ active });
+    chrome.storage.local.set({ active });
 });
 button.addEventListener('click', () => __awaiter(void 0, void 0, void 0, function* () {
-    let res = yield chrome.storage.sync.get('active');
+    let res = yield chrome.storage.local.get('active');
     let current_status = res['active'];
     // Set inverted.
-    yield chrome.storage.sync.set({ active: !current_status });
+    yield chrome.storage.local.set({ active: !current_status });
     setButtonActiveStatus(button, !current_status);
 }));
 //# sourceMappingURL=popup.js.map

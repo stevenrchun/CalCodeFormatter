@@ -16,7 +16,7 @@ Elements](https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCo
 If the formatter is on, you should see the new formatting applied. If you wish
 to turn it off, simply turn off formatting in the controls and refresh the page.
 
----
+### How It Works
 
 As it exists, the California Civil Code is difficult to read because of its
 extensive use of structured headings and disdain for indentation.
