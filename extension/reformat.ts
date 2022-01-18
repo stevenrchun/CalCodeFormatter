@@ -259,7 +259,6 @@ function reformatPage() {
 
   // Then get the actual bill text
   if (bill_content_div) {
-    console.log('WOOO found bill content div');
     // A potential approach I'm leaving commented out:
     // Find the specific code sections because they all have an id that looks
     // like "s20.123098124".
