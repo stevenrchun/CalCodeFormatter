@@ -1,7 +1,7 @@
 {
     "name": "California Code Formatter",
     "description": "Reformats the California legal codes into something more readable.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "manifest_version": 3,
     "permissions": ["storage", "scripting"],
     "action": {
