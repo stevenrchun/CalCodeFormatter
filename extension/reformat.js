@@ -7,6 +7,8 @@ let CODE_CONTENT_ID = 'single_law_section';
 // ex.
 // https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=COM&division=7.&title=&part=&chapter=2.&article=
 let ARTICLE_CONTENT_ID = 'manylawsections';
+let BILL_CONTENT_ID = 'bill';
+let BILL_DIGEST_ID = 'digesttext';
 function romanToInt(roman) {
     roman = roman.toUpperCase();
     const ROMAN_TO_INT = {
@@ -67,22 +69,8 @@ function surroundedByParentheses(text) {
         return false;
     return text[0] == '(' && text[text.length - 1] == ')';
 }
-function reformatPage() {
-    let content_div = document.getElementById(ARTICLE_CONTENT_ID);
-    if (!content_div) {
-        // Try the single law page content id.
-        content_div = document.getElementById(CODE_CONTENT_ID);
-        if (!content_div) {
-            console.error('CalCodeFormatter has found an eligible webpage, but not recognized any of the content.');
-            return;
-        }
-    }
-    // Returns a static collection, will not reflect DOM updates.
-    let text_children_nodes = content_div.querySelectorAll('p');
-    if (!text_children_nodes) {
-        console.warn('This law section appears to have no content.');
-        return;
-    }
+// Takes in NodeElements and runs the formatting logic on them.
+function formatNodes(text_children_nodes) {
     // The order of the civil code nesting structure is
     // (a) (1) (A) (roman i)( roman I) (ia)
     // Parsing this is complicated by the collision between the first-level
@@ -205,13 +193,64 @@ function reformatPage() {
         // Set padding based on padding level.
         let padding = padding_level * 25;
         let text_element = text_node;
-        // Yes we're applying the padding variable to margin.  That's because
-        // wrapped text doesn't respect padding, which makes it a poor choice for
-        // indenting.
-        text_element.style.margin = `0 0 0 ${padding}px`;
-        text_element.style.padding = `0 0 0 5px`;
+        text_element.style.marginLeft = `${padding}px`;
         text_element.style.display = 'block';
     }
+}
+function reformatPage() {
+    // Decide which page we're on based on which content ids are available, then
+    // pass the relevant HTML nodes to formatNodes.
+    //
+    // Matches text on the page for multiple codes.
+    // https://leginfo.legislature.ca.gov/faces/codes_displayText*
+    let multiple_laws_content_div = document.getElementById(ARTICLE_CONTENT_ID);
+    // Try the single law page content id.
+    // https://leginfo.legislature.ca.gov/faces/codes_displaySection*
+    let single_law_content_div = document.getElementById(CODE_CONTENT_ID);
+    // Try the bill page content id.
+    // https://leginfo.legislature.ca.gov/faces/codes_displaySection*
+    let bill_content_div = document.getElementById(BILL_CONTENT_ID);
+    let bill_digest_content_div = document.getElementById(BILL_DIGEST_ID);
+    // If we can't find any of these key divs.
+    if (!multiple_laws_content_div &&
+        !single_law_content_div &&
+        !bill_content_div) {
+        console.error('CalCodeFormatter has found an eligible webpage, but not recognized any of the content.');
+        return;
+    }
+    // Use array of Node elements instead of NodeList so we can append.
+    let text_children_nodes = [];
+    if (multiple_laws_content_div) {
+        text_children_nodes = text_children_nodes.concat(Array.from(multiple_laws_content_div.querySelectorAll('p')));
+    }
+    if (single_law_content_div) {
+        text_children_nodes = text_children_nodes.concat(Array.from(single_law_content_div.querySelectorAll('p')));
+    }
+    // The Bill one is a bit more complicated.
+    // First grab the digest text.
+    if (bill_digest_content_div) {
+        text_children_nodes = text_children_nodes.concat(Array.from(bill_digest_content_div.querySelectorAll('div')));
+    }
+    // Then get the actual bill text
+    if (bill_content_div) {
+        console.log('WOOO found bill content div');
+        // A potential approach I'm leaving commented out:
+        // Find the specific code sections because they all have an id that looks
+        // like "s20.123098124".
+        // We could either match on ids that start with s or contain a period.
+        // The latter seems less brittle, but just barely lol.
+        // let section_divs = bill_content_div.querySelectorAll('div[id*="."]');
+        // This requires some custom logic to get not .textContent (which returns
+        // text content from child nodes) but rather just the text content
+        // of the immediate children of the current node. This is because
+        // we can only select child divs from the section, but there's still
+        // divs nested in divs below the section divs.
+        // Going with a radically brittle approach here.
+        // The actual text divs have this very distinct inline style which we can use.
+        text_children_nodes = text_children_nodes.concat(Array.from(bill_content_div.querySelectorAll('div[style="margin:0 0 1em 0;"]')));
+    }
+    console.log(text_children_nodes);
+    formatNodes(text_children_nodes);
 }
 // Default to True, if the UI hasn't been brought up yet, which sets initial state for 'active'.
 // This could be done in a background script on the onInstall listener, but this is easier.
