@@ -280,8 +280,6 @@ function reformatPage() {
     );
   }
 
-  console.log(text_children_nodes);
-
   formatNodes(text_children_nodes);
 }
 

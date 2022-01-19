@@ -248,7 +248,6 @@ function reformatPage() {
         // The actual text divs have this very distinct inline style which we can use.
         text_children_nodes = text_children_nodes.concat(Array.from(bill_content_div.querySelectorAll('div[style="margin:0 0 1em 0;"]')));
     }
-    console.log(text_children_nodes);
     formatNodes(text_children_nodes);
 }
 // Default to True, if the UI hasn't been brought up yet, which sets initial state for 'active'.

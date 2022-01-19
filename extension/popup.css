@@ -1,58 +1,58 @@
-/* From Josh Comeau's excellent shadow generator */
-:root {
-  --shadow-color: 18deg 34% 51%;
-  --shadow-elevation-low:
-    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.4),
-    0.4px 0.9px 1.1px -1.2px hsl(var(--shadow-color) / 0.4),
-    1.1px 2.2px 2.8px -2.5px hsl(var(--shadow-color) / 0.4);
-  --shadow-elevation-medium:
-    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.42),
-    0.9px 1.7px 2.2px -0.8px hsl(var(--shadow-color) / 0.42),
-    2.2px 4.4px 5.5px -1.7px hsl(var(--shadow-color) / 0.42),
-    5.4px 10.8px 13.6px -2.5px hsl(var(--shadow-color) / 0.42);
-  --shadow-elevation-high:
-    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.39),
-    1.6px 3.3px 4.1px -0.4px hsl(var(--shadow-color) / 0.39),
-    3.1px 6.2px 7.8px -0.7px hsl(var(--shadow-color) / 0.39),
-    5.1px 10.2px 12.8px -1.1px hsl(var(--shadow-color) / 0.39),
-    8.2px 16.4px 20.6px -1.4px hsl(var(--shadow-color) / 0.39),
-    12.8px 25.6px 32.2px -1.8px hsl(var(--shadow-color) / 0.39),
-    19.5px 39px 49.1px -2.1px hsl(var(--shadow-color) / 0.39),
-    28.8px 57.5px 72.3px -2.5px hsl(var(--shadow-color) / 0.39);
-}
-
 body {
   margin: 0;
-  font-size: 14px;
   font-family: 'Times New Roman', serif;
 }
 
 .container {
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fbd9cb;
+  background-color: #113D30;
+  color: white;
 }
 
 #activateButton {
+  font-size: 28px;
   padding: 5px;
   display: flex;
   border-radius: 5px;
   border: none;
-  margin-left: 2px;
+  margin-left: 5px;
   justify-content: center;
   align-items: center;
   font-family: inherit;
-  transition: all 0.3s ease 0s;
-  background-color: white;
-}
-
-.button-off {
-  box-shadow: var(--shadow-elevation-low);
+  transition: all 0.2s ease 0s;
+  background-color: #113D30;
+  color: white;
+  z-index: 100;
 }
 
 .button-on {
-  box-shadow: var(--shadow-elevation-medium);
+  color: #EFC000 !important;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-style: solid;
+  border-color: #F5F5F5;
+  border-width: 1px;
+}
+
+.outer-border {
+  margin: 12px 6px;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-border {
+  margin: 6px 12px;
 }
