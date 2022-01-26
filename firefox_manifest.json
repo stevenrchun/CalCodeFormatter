@@ -1,0 +1,21 @@
+{
+    "name": "California Code Formatter",
+    "description": "Reformats the California legal codes into something more readable.",
+    "version": "0.2.0",
+    "manifest_version": 2,
+    "permissions": ["storage"],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "128": "/icon128.png"
+        }
+    },
+    "icons": {
+        "128": "/icon128.png"
+    },
+    "content_scripts": [{
+        "matches": ["https://leginfo.legislature.ca.gov/faces/codes_displayText*", "https://leginfo.legislature.ca.gov/faces/codes_displaySection*", "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml*"],
+        "css": ["reformat.css"],
+        "js": ["reformat.js"]
+    }]
+}

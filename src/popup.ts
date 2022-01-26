@@ -2,6 +2,8 @@ const BUTTON_ID = 'activateButton';
 const BUTTON_OFF_CLASS = 'button-off';
 const BUTTON_ON_CLASS = 'button-on';
 
+console.log('popup js loaded baby');
+
 function setButtonActiveStatus(button: HTMLElement, active: boolean) {
   if (active) {
     button.className = BUTTON_ON_CLASS;
@@ -33,9 +35,13 @@ chrome.storage.local.get({ active: true }, ({ active }) => {
 });
 
 button.addEventListener('click', async () => {
-  let res = await chrome.storage.local.get('active');
-  let current_status = res['active'];
-  // Set inverted.
-  await chrome.storage.local.set({ active: !current_status });
-  setButtonActiveStatus(button, !current_status);
+  // The current chrome api supports promises, but the firefox version of
+  // the chrome api only does callbacks, so to make the codebase work across
+  // both we can't use async/await.
+  chrome.storage.local.get('active', ({ active }) => {
+    let current_status = active;
+    // Set inverted.
+    chrome.storage.local.set({ active: !current_status });
+    setButtonActiveStatus(button, !current_status);
+  });
 });

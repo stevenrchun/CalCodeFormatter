@@ -1,4 +1,3 @@
-"use strict";
 // Class and Id Constants
 // Refers to the primary div for the text of a single civil code, ex.
 // https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=GOV&sectionNum=65589.5

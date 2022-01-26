@@ -75,6 +75,19 @@ Meaning we need
 This will work correctly in many cases, but will not resolve indeterminate
 cases.
 
+### Development
+In order to support Chrome (which uses manifest V3) and Firefox (which uses
+manifest V2), we utilize `make` to generate complete extension directories from
+the typescript source and distinct manifests.
+
+`make chrome` will produce the chrome/ directory and zip file.
+`make firefox` will do the same for firefox.
+`make build` will compile the typescript code.
+`make all` builds both firefox and chrome.
+`make clean` to get rid of any generated code.
+
+This all works on macOS Big Sur, but hasn't been tested on anything else.
+
 ### Bugs
 
 If, in your perusal of the letter of the law, you notice a case of incorrect

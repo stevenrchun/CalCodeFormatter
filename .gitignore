@@ -1,3 +1,10 @@
+# Project specific files
+# Ignore generated directories and files
+chrome/
+firefox/
+firefox.zip
+chrome.zip
+
 # This guy
 .DS_Store
 
