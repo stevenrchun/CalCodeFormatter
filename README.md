@@ -1,5 +1,14 @@
+
 # CalCodeFormatter
 _A code formatter but not in that way!_
+
+## Supersedingly Important Notice
+https://leginfo.legislature.ca.gov now has native indentation. If you want to
+read about how that came to be, [see here](https://blog.stevenchun.me/2022/07/When-You-Try-to-Make-A-Christmas-Present-and-End-Up-Reformatting-the-Official-California-Legal-Code/). This repo solves
+a problem that no longer exists, hooray! If you have this installed as a chrome
+extension, you can uninstall it and the behavior is now weird since there's
+already indentation.
+
 
 ### Important User Notice
 This software exists to make the California Civil Code easier to read. It works
